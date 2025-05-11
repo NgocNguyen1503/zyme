@@ -15,24 +15,18 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $param = $request->all();
-        if ($param['email'] && $param['password'])
-        {
-            if (Auth::attempt(['email' => $param['email'], 'password' => $param['password']]))
-            {
-                if (Auth::user()->role == User::ROLE_ADMIN)
-                {
+        if ($param['email'] && $param['password']) {
+            if (Auth::attempt(['email' => $param['email'], 'password' => $param['password']])) {
+
+                if (Auth::user()->role == User::ROLE_ADMIN) {
                     return redirect('/users');
                 } else {
-                    return redirect('/home');
+                    return redirect('/editor');
                 }
-            }
-            else 
-            {
+            } else {
                 return redirect('/login');
             }
-        }
-        else 
-        {
+        } else {
             return [
                 'status' => 401,
                 'message' => 'Unauthorization',

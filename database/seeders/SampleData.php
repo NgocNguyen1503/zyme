@@ -21,23 +21,34 @@ class SampleData extends Seeder
          * Nhuoc diem: xu ly logic khong manh.
          */
         // Tao 100 editor va 1 admin
-        for ($i = 0; $i < 100; $i++) {
-            DB::table('users')->insert([
-                'name' => 'editor-' . $i,
-                'email' => 'editorEmail'.$i.'@gmail.com',
-                /**
-                 * Ma hoa mat khau duoi dang SHA
-                 * Khoa bi mat la gia tri cua APP_KEY trong env
-                 */
-                'password' => Hash::make('12345678'),
-                'role' => 0
-            ]);
-        }
+        // for ($i = 0; $i < 100; $i++) {
+        //     DB::table('users')->insert([
+        //         'name' => 'editor-' . $i,
+        //         'email' => 'editorEmail'.$i.'@gmail.com',
+        //         /**
+        //          * Ma hoa mat khau duoi dang SHA
+        //          * Khoa bi mat la gia tri cua APP_KEY trong env
+        //          */
+        //         'password' => Hash::make('12345678'),
+        //         'role' => 0
+        //     ]);
+        // }
+        // DB::table('users')->insert([
+        //     'name' => 'admin',
+        //     'email' => 'admin@gmail.com',
+        //     'password' => Hash::make('12345678'),
+        //     'role' => 1
+        // ]);
+
         DB::table('users')->insert([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'editor-' . 112,
+            'email' => 'editorEmail' . 112 . '@gmail.com',
+            /**
+             * Ma hoa mat khau duoi dang SHA
+             * Khoa bi mat la gia tri cua APP_KEY trong env
+             */
             'password' => Hash::make('12345678'),
-            'role' => 1
+            'role' => 0
         ]);
     }
 }

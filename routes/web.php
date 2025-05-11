@@ -55,5 +55,10 @@ Route::group(['middleware' => 'checkLogin'], function () {
         Route::get('/export', [App\Http\Controllers\StatisticController::class, 'export']);
     });
 
+    Route::group(['prefix' => 'editor'], function () {
+        Route::get('/', [App\Http\Controllers\EditorController::class, 'index']);
+        Route::post('/edit/{id}', [App\Http\Controllers\EditorController::class, 'update']);
+    });
+
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 });
