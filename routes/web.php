@@ -58,6 +58,7 @@ Route::group(['middleware' => 'checkLogin'], function () {
     Route::group(['prefix' => 'editor'], function () {
         Route::get('/', [App\Http\Controllers\EditorController::class, 'index']);
         Route::post('/edit/{id}', [App\Http\Controllers\EditorController::class, 'update']);
+        Route::get('/download/{id}', [App\Http\Controllers\EditorController::class, 'download']);
     });
 
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);

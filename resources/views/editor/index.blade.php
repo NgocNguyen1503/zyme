@@ -57,7 +57,8 @@
                 </thead>
                 <tbody>
                     @foreach ($files as $file)
-                        <form action="{{ url('/editor/edit/' . $file->id) }}" method="POST">
+                        <form action="{{ url('/editor/edit/' . $file->id) }}" id="upload_form_{{ $file->id }}"
+                            enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <tr>
                                 <td>{{ $file->id }}</td>
@@ -67,9 +68,11 @@
                                 <td>{{ $file->txt_priority }}</td>
                                 <td>
                                     <button class="btn btn-primary">編集</button>
-                                    <a href="{{ url('/editor/download/' . $file->id) }}" class="btn btn-primary">ダウンロード</a>
+                                    <a href="{{ url('/editor/download/' . $file->id) }}" target="_blank"
+                                        class="btn btn-primary">ダウンロード</a>
                                     <label class="btn btn-primary" for="choose_file_{{ $file->id }}">アップロード</label>
-                                    <input type="file" name="file" style="display: none" id="choose_file_{{ $file->id }}">
+                                    <input type="file" name="file" style="display: none" onchange="upload({{ $file->id }})"
+                                        id="choose_file_{{ $file->id }}">
                                 </td>
                             </tr>
                         </form>
@@ -92,6 +95,25 @@
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/soft-ui-dashboard.min.js?v=1.1.0') }}"></script>
+
+    <script>
+        // Handles file selection for upload.
+        function upload(fileId) {
+            let input = document.getElementById('choose_file_' + fileId);
+            let file = input.files[0];
+
+            // Validate file type
+            if (file.type != 'image/jpeg' && file.type != 'image/png' && file.type != 'image/vnd.adobe.photoshop') {
+                alert("Only JPG, PNG, and PSD files are allowed!");
+                // Optionally clear the input if invalid
+                input.value = '';
+                return; // Stop further execution
+            }
+
+            // Submit the form if file type is valid
+            $('#upload_form_' + fileId).submit();
+        }
+    </script>
 </body>
 
 </html>
